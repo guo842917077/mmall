@@ -1,0 +1,76 @@
+1.《Java从零打造企业级电商项目实战-服务端_课程问答-FAQ》
+    https://www.imooc.com/article/18998
+2.《happymmall课程QQ群分享手记》
+    https://www.imooc.com/article/19094
+3.《Java从零打造企业级电商实战-服务端》思维导图&知识点索引&温馨tips》
+    https://www.imooc.com/article/20193
+4.《找工作的季节之简历及找工作的分享》
+   https://www.imooc.com/article/19998
+5.二期进阶课程《Java企业级电商项目架构演进之路 Tomcat集群与Redis分布式》
+   https://coding.imooc.com/learn/list/162.html
+
+最后欢迎大家加入课程QQ交流群一起交流探讨，QQ群号：274972262
+
+
+
+Maven 是Java项目的构建和管理工具
+基于archetype可以创建多种类型的java项目
+Maven参考对artifact进行统一版本 
+Maven的release和snapshot版本
+mvn clean
+mvn compile
+mvn package
+mvn clean package -Dmaven.test.skip=true
+
+pom 
+
+
+
+Mybatis-generator：
+自动生成数据库交互代码
+Mybatis-plugin
+Idea超级好用的Mybatis插件，实现mybatis的接口文件和实现xml的自动跳转，验证正确性，xml中智能提示
+Mybatis-pagehelper
+Mybatis的分页组件
+
+
+
+web.xml配置初始化
+
+
+Logback日志管理系统
+
+Problem窗口，实时编译配置及作用
+
+Restlet client。和postman同类型软件。模拟任何http请求
+FE助手。json格式化
+
+
+
+Nginx 是一个轻量级的web服务器，是一款反向代理的服务器
+可以直接支持Rails和PHP
+作为Http的反向代理服务器
+作为负载均衡服务器
+作为邮件代理服务器
+帮助实现前端动静分离
+
+Nginx特点：
+高稳定，高性能，资源占用少 功能丰富 模块化结构。支持热部署
+
+
+
+表结构：
+表关系
+唯一索引 保证字段的唯一确定 unique key ‘key’（‘字段’）using btree
+时间戳
+Url存相对地址 地址+图片名  保证地址迁移时，只需改配置文件中的地址就行
+不使用 外键  因为在数据迁移，分表时 使用外键会很麻烦。
+唯一索引：保证数据的唯一性能
+组合索引 KEY ‘order_no_user_id_index’('user_id','order_no') USING BTREE 组合索引查询更加快速
+时间戳 create_time 数据创建时间 update_time 数据更新时间 当日志没有打印时，可以通过updatetime来查看数据改变时间，只添加最新的
+
+
+Navical初始化数据库  下载mmall.sql 使用文本方式打开mmall 复制里面的sql语句，使用mysql的query执行
+
+git 配置ssh
+
