@@ -5,7 +5,7 @@
          id="WebApp_ID" version="2.5">
 
     <display-name>Archetype Created Web Application</display-name>
-    <!-- 做UTF-8的转码-->
+    <!-- 做UTF-8的转码 强制编码为utf-8-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
