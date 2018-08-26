@@ -57,7 +57,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "logout.do", method = RequestMethod.GET)
+    @RequestMapping(value = "logout.do", method =RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> logout(HttpSession session) {
         if (session.getAttribute(Constant.CURRENT_USER) != null) {
@@ -97,7 +97,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "getUserInfo.do", method = RequestMethod.GET)
+    @RequestMapping(value = "getUserInfo.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpSession session) {
         User user = (User) session.getAttribute(Constant.CURRENT_USER);
@@ -107,7 +107,13 @@ public class UserController {
         return ServerResponse.createByErrorMessage("用户未登录，无法获取当前的用户信息");
     }
 
-    @RequestMapping(value = "forget_get_question.do", method = RequestMethod.GET)
+    /**
+     * 整个修改密码业务的流程是forget_get_question--forget_check_answer.do-----forget_reset_password.do
+     * 当用户忘记密码时，首先查询当前用户的问题
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "forget_get_question.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forGetQuestion(String username) {
         //todo forget question function
@@ -123,7 +129,7 @@ public class UserController {
      * @param answer   答案
      * @return
      */
-    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.GET)
+    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetQuestionCheckAnswer(String username, String question, String answer) {
         return iUserService.forgetQuestionCheckAnswer(username, question, answer);
@@ -137,7 +143,7 @@ public class UserController {
      * @param tokenString token值
      * @return
      */
-    @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.GET)
+    @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetResetPassword(String username, String newPassword, String tokenString) {
         return iUserService.forgetResetPassword(username, newPassword, tokenString);
@@ -146,7 +152,7 @@ public class UserController {
     /**
      * 登录状态重置密码
      */
-    @RequestMapping(value = "reset_password.do", method = RequestMethod.GET)
+    @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> resetPassword(HttpSession session, String passwordOld, String passwordNew) {
         User user = (User) session.getAttribute(Constant.CURRENT_USER);
@@ -162,7 +168,7 @@ public class UserController {
      * @param session
      * @param user    为防止越权问题，首先判断用户是否登录，并且把用户的id设置成当前登录的id。（防止有人使用一个普通账号，调用这个接口更新更高级的信息）
      */
-    @RequestMapping(value = "update_information.do", method = RequestMethod.GET)
+    @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> updateInfomation(HttpSession session, User user) {
         User currentUser = (User) session.getAttribute(Constant.CURRENT_USER);
@@ -179,12 +185,19 @@ public class UserController {
         return response;
     }
 
-    //如果用户没有登录，必须登录
+    /**
+     * 返回前台用户的详细信息
+     *
+     * @param session 当前登录用户
+     * @return
+     */
+    @RequestMapping(value = "get_infomation.do", method = RequestMethod.POST)
+    @ResponseBody
     public ServerResponse<User> getInfomation(HttpSession session) {
         User currentUser = (User) session.getAttribute(Constant.CURRENT_USER);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "未登录，需要强制登录status=10");
         }
-        return iUserService.updateInfomation(currentUser);
+        return iUserService.getInfomation(currentUser.getId());
     }
 }

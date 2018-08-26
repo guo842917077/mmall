@@ -155,7 +155,7 @@ public class UserServiceImp implements IUserService {
         if (validResponse.isSuccess()) {
             return ServerResponse.createByErrorMessage("用户名不存在，请先注册");
         }
-        String tokenCache = TokenCache.getKey(TokenCache.TOKEN_PREFIX);
+        String tokenCache = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
         if (StringUtils.isBlank(tokenCache)) {
             return ServerResponse.createByErrorMessage("token无效，或者过期");
         }
@@ -164,7 +164,7 @@ public class UserServiceImp implements IUserService {
             String md5Password = Md5Util.MD5EncodeUtf8(newPassword);
             int rowCount = userMapper.updataPasswordByPassword(username, md5Password);
             if (rowCount > 0) {
-                ServerResponse.createBySuccessMsg("修改密码成功");
+                return ServerResponse.createBySuccessMsg("修改密码成功");
             } else {
                 return ServerResponse.createByErrorMessage("token错误，请重新获取重置密码的token");
             }
@@ -198,7 +198,7 @@ public class UserServiceImp implements IUserService {
      * 更新用户信息
      *
      * @param user
-     * @return
+     * @return 响应结果
      */
     @Override
     public ServerResponse<User> updateInfomation(User user) {
@@ -219,14 +219,19 @@ public class UserServiceImp implements IUserService {
         return ServerResponse.createByErrorMessage("用户信息更新失败");
     }
 
-
+    /**
+     * 根据UserID 获取用户信息
+     *
+     * @param userId 用户id
+     * @return 响应结果
+     */
     public ServerResponse<User> getInfomation(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         if (user == null) {
             return ServerResponse.createByErrorMessage("找不到当前用户");
         }
         user.setPassword(StringUtils.EMPTY);
-        return null;
+        return ServerResponse.createBySuccess(user);
     }
 
 }
