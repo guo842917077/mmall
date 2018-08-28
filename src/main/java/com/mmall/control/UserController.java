@@ -191,7 +191,7 @@ public class UserController {
      * @param session 当前登录用户
      * @return
      */
-    @RequestMapping(value = "get_infomation.do", method = RequestMethod.POST)
+    @RequestMapping(value = "get_infomation.do", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> getInfomation(HttpSession session) {
         User currentUser = (User) session.getAttribute(Constant.CURRENT_USER);
