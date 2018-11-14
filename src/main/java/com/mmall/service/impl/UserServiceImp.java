@@ -34,7 +34,7 @@ public class UserServiceImp implements IUserService {
         if (user == null) {
             return ServerResponse.createByErrorMessage("密码错误");
         }
-        //不返回密码
+        //返回user对象，该对象密码设置为空
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功", user);
 
@@ -234,5 +234,14 @@ public class UserServiceImp implements IUserService {
         return ServerResponse.createBySuccess(user);
     }
 
+
+    //back 后台逻辑
+    // 检查用户是否是管理员
+    public ServerResponse<String> checkIsAdmin(User user) {
+        if (user != null && user.getRole() == Constant.Role.ROLE_ADMIN) {
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByErrorMessage("当前用户没有权限，需要管理员的权限");
+    }
 }
 

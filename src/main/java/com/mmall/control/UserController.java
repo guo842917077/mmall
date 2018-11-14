@@ -57,7 +57,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "logout.do", method =RequestMethod.POST)
+    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> logout(HttpSession session) {
         if (session.getAttribute(Constant.CURRENT_USER) != null) {
@@ -110,6 +110,7 @@ public class UserController {
     /**
      * 整个修改密码业务的流程是forget_get_question--forget_check_answer.do-----forget_reset_password.do
      * 当用户忘记密码时，首先查询当前用户的问题
+     *
      * @param username
      * @return
      */
@@ -200,4 +201,5 @@ public class UserController {
         }
         return iUserService.getInfomation(currentUser.getId());
     }
+
 }
